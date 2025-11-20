@@ -1,12 +1,17 @@
-html,body{
-  height:100%;
-  margin:0;
-  background: linear-gradient(180deg,#eaf2ff 0%, #ffffff 100%);
-  font-family: Inter, system-ui, Arial, sans-serif;
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffe4e1; /* Pale pink */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Fredoka', sans-serif;
 }
-#game-container{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:100vh;
+
+#game-container {
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+    border-radius: 20px;
+    overflow: hidden;
 }

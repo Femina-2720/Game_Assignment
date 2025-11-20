@@ -1,0 +1,880 @@
+=== DIRECTORY TREE ===
+
+Folder PATH listing for volume Windows
+Volume serial number is CA9B-F22D
+C:.
+|   FullStructure.txt
+|   game.js
+|   index.html
+|   style.css
+|   
++---assets
+|       blue.png
+|       Cat.png
+|       Desktop_JustDivide_Game_2.png
+|       eklavya.png
+|       JustDivide_Game_13.png
+|       Landscape_JustDivide_Game_2.png
+|       Levels and Score.png
+|       orange.png
+|       pink.png
+|       Placement_Box.png
+|       Potraite_JustDivide_Game_2.png
+|       purpule.png
+|       red.png
+|       
+\---scenes
+        BootScene.js
+        GameScene.js
+        PauseScene.js
+        UIScene.js
+        
+
+=== FILE CONTENTS ===
+
+
+==========================================
+FILE: C:\Users\femi6\OneDrive\Desktop\game11\FullStructure.txt
+==========================================
+=== DIRECTORY TREE ===
+
+Folder PATH listing for volume Windows
+Volume serial number is CA9B-F22D
+C:.
+|   FullStructure.txt
+|   game.js
+|   index.html
+|   style.css
+|   
++---assets
+|       blue.png
+|       Cat.png
+|       Desktop_JustDivide_Game_2.png
+|       eklavya.png
+|       JustDivide_Game_13.png
+|       Landscape_JustDivide_Game_2.png
+|       Levels and Score.png
+|       orange.png
+|       pink.png
+|       Placement_Box.png
+|       Potraite_JustDivide_Game_2.png
+|       purpule.png
+|       red.png
+|       
+\---scenes
+        BootScene.js
+        GameScene.js
+        PauseScene.js
+        UIScene.js
+        
+
+=== FILE CONTENTS ===
+
+
+==========================================
+FILE: C:\Users\femi6\OneDrive\Desktop\game11\FullStructure.txt
+==========================================
+
+
+==========================================
+FILE: C:\Users\femi6\OneDrive\Desktop\game11\game.js
+==========================================
+const config = {
+    type: Phaser.AUTO,
+    width: 1440,
+    height: 1024,
+    parent: 'game-container',
+    backgroundColor: '#FCEFE9',
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    scene: [BootScene, GameScene, PauseScene]
+};
+
+const game = new Phaser.Game(config);
+
+==========================================
+FILE: C:\Users\femi6\OneDrive\Desktop\game11\index.html
+==========================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just Divide - Kid Mode</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+</head>
+<body>
+    <div id="game-container"></div>
+
+    <script src="scenes/BootScene.js"></script>
+    <script src="scenes/PauseScene.js"></script>
+    <script src="scenes/GameScene.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
+
+==========================================
+FILE: C:\Users\femi6\OneDrive\Desktop\game11\style.css
+==========================================
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffe4e1; /* Pale pink */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Fredoka', sans-serif;
+}
+
+#game-container {
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\blue.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Cat.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Desktop_JustDivide_Game_2.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\eklavya.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\JustDivide_Game_13.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Landscape_JustDivide_Game_2.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Levels and Score.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\orange.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\pink.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Placement_Box.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Potraite_JustDivide_Game_2.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\purpule.png]
+
+[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\red.png]
+
+==========================================
+FILE: C:\Users\femi6\OneDrive\Desktop\game11\scenes\BootScene.js
+==========================================
+class BootScene extends Phaser.Scene {
+    constructor() {
+        super('BootScene');
+    }
+
+    preload() {
+        // Loading Text
+        const width = this.cameras.main.width;
+        const height = this.cameras.main.height;
+        this.add.text(width / 2, height / 2, 'Loading...', {
+            fontFamily: 'Fredoka', fontSize: '40px',
+            color: '#000000'
+        }).setOrigin(0.5);
+
+        // Load Images
+        this.load.image('bg', 'assets/Desktop_JustDivide_Game_2.png');
+        this.load.image('cat', 'assets/Cat.png');
+        this.load.image('levelScore', 'assets/Levels and Score.png'); 
+        this.load.image('gridPanel', 'assets/Placement_Box.png');
+        
+        // Tiles (Ensure filenames match exactly what you have)
+        this.load.image('tile_blue', 'assets/blue.png');
+        this.load.image('tile_red', 'assets/red.png');
+        this.load.image('tile_purpule', 'assets/purpule.png'); // Fixed typo 'purpule' -> 'purple' based on standard naming, check your file
+        this.load.image('tile_orange', 'assets/orange.png');
+        this.load.image('tile_pink', 'assets/pink.png');
+    }
+
+    create() {
+        this.scene.start('GameScene');
+    }
+}
+
+==========================================
+FILE: C:\Users\femi6\OneDrive\Desktop\game11\scenes\GameScene.js
+==========================================
+class GameScene extends Phaser.Scene {
+    constructor() {
+        super('GameScene');
+    }
+
+    init() {
+        // --- Game State ---
+        this.gridArray = Array(16).fill(null);
+        this.upcomingQueue = [];
+        this.keepTileValue = null;
+        this.keepTileSprite = null;
+        this.currentActiveTile = null;
+        
+        this.score = 0;
+        this.level = 1;
+        this.trashCount = 10;
+        this.bestScore = parseInt(localStorage.getItem('jd_best_score')) || 0;
+        
+        // --- Timer State ---
+        this.gameTime = 0;
+        this.timerEvent = null;
+        this.isPaused = false;
+
+        // --- Configuration ---
+        this.TILE_SIZE = 105; // Slightly smaller to fit comfortably
+        // Grid Calculation: 
+        // Center X = 720. Grid width approx 4 * 125 = 500. 
+        // Start X = 720 - (1.5 * 125) = 532.5
+        this.GRID_SPACING = 125;
+        this.GRID_START_X = 720 - (1.5 * this.GRID_SPACING); 
+        this.GRID_START_Y = 550; // Shifted down to make room for Cat
+        
+        this.colorsList = ['blue', 'red', 'purple', 'orange', 'pink'];
+    }
+
+    create() {
+        // 1. Background
+        this.add.image(720, 512, 'bg').setDisplaySize(1440, 1024);
+        this.createDecorations();
+
+        // 2. Global Input Listeners (FIXED: moved here so they are added only ONCE)
+        this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
+            if (!this.isPaused) {
+                gameObject.x = dragX;
+                gameObject.y = dragY;
+            }
+        });
+
+        this.input.on('dragend', (pointer, gameObject) => {
+            if (!this.isPaused) {
+                this.handleDrop(gameObject);
+            }
+        });
+
+        // 3. Top Header
+        this.createHeader();
+
+        // 4. Main Game Area (Grid & Cat)
+        this.createGridSystem();
+
+        // 5. Right Sidebar (Keep, Next, Trash)
+        this.createSidebar();
+
+        // 6. Logic Start
+        this.fillQueue();
+        this.spawnNextTile(); // Initial spawn
+        this.updateUI();
+
+        // 7. Timer
+        this.timerEvent = this.time.addEvent({ 
+            delay: 1000, 
+            callback: this.onTimerTick, 
+            callbackScope: this, 
+            loop: true 
+        });
+    }
+
+    // ==========================================
+    // UI CONSTRUCTION
+    // ==========================================
+
+    createHeader() {
+        // Pause Button
+        const pauseBtn = this.add.circle(70, 70, 35, 0x9b51e0).setInteractive({ useHandCursor: true });
+        this.add.text(70, 70, "II", { fontFamily: 'Fredoka', fontSize: '28px', color: '#fff', fontStyle:'bold' }).setOrigin(0.5);
+        pauseBtn.on('pointerdown', () => this.togglePause());
+
+        // Help Button
+        const helpBtn = this.add.circle(1370, 70, 35, 0x00C853).setInteractive({ useHandCursor: true });
+        this.add.text(1370, 70, "?", { fontFamily: 'Fredoka', fontSize: '32px', color: '#fff', fontStyle:'bold' }).setOrigin(0.5);
+
+        // Title
+        this.add.text(720, 70, "JUST DIVIDE", {
+            fontFamily: 'Fredoka', fontSize: '60px', fontStyle: 'bold', color: '#2c3e50'
+        }).setOrigin(0.5);
+
+        // Timer Display
+        this.add.text(720, 130, "⏳", { fontSize: '28px' }).setOrigin(1, 0.5);
+        this.timerText = this.add.text(730, 130, "00:00", {
+            fontFamily: 'Fredoka', fontSize: '32px', color: '#2c3e50', fontStyle: 'bold'
+        }).setOrigin(0, 0.5);
+
+        // Subtitle
+        this.add.text(720, 180, "DIVIDE WITH THE NUMBERS TO SOLVE THE ROWS AND COLUMNS.", {
+            fontFamily: 'Fredoka', fontSize: '24px', color: '#E67E22', fontStyle: 'bold'
+        }).setOrigin(0.5);
+    }
+
+    createGridSystem() {
+        // Cat Character
+        this.add.image(720, 330, 'cat').setScale(0.9).setDepth(5);
+
+        // Badges (Level & Score)
+        // Left Badge
+        this.add.image(600, 420, 'levelScore').setScale(0.85).setDepth(4);
+        this.levelText = this.add.text(600, 420, "LEVEL 1", {
+            fontFamily: 'Fredoka', fontSize: '26px', fontStyle: 'bold', color: '#fff'
+        }).setOrigin(0.5).setDepth(5);
+
+        // Right Badge
+        this.add.image(840, 420, 'levelScore').setScale(0.85).setDepth(4);
+        this.scoreText = this.add.text(840, 420, "SCORE 0", {
+            fontFamily: 'Fredoka', fontSize: '26px', fontStyle: 'bold', color: '#fff'
+        }).setOrigin(0.5).setDepth(5);
+
+        // Teal Grid Background
+        const gridW = 540;
+        const gridH = 540;
+        const gridX = 720;
+        const gridY = this.GRID_START_Y + (1.5 * 125); // Center of the grid array
+
+        const gridBg = this.add.graphics();
+        gridBg.fillStyle(0x008B9C, 1); // Dark Teal
+        gridBg.fillRoundedRect(gridX - gridW/2, gridY - gridH/2, gridW, gridH, 25);
+        gridBg.lineStyle(5, 0xffffff);
+        gridBg.strokeRoundedRect(gridX - gridW/2, gridY - gridH/2, gridW, gridH, 25);
+
+        // Slots
+        this.gridSlots = [];
+        for (let r = 0; r < 4; r++) {
+            for (let c = 0; c < 4; c++) {
+                const x = this.GRID_START_X + (c * this.GRID_SPACING);
+                const y = this.GRID_START_Y + (r * this.GRID_SPACING);
+
+                // Empty Slot Visual
+                const slotVis = this.add.graphics();
+                slotVis.fillStyle(0x006d7a, 1); // Slightly darker teal for empty slot
+                slotVis.fillRoundedRect(x - 55, y - 55, 110, 110, 15);
+                slotVis.lineStyle(2, 0x4DD0E1);
+                slotVis.strokeRoundedRect(x - 55, y - 55, 110, 110, 15);
+
+                // Hit Zone
+                const zone = this.add.zone(x, y, 110, 110).setRectangleDropZone(110, 110);
+                zone.gridIndex = (r * 4) + c;
+                this.gridSlots.push({ x, y, zone });
+            }
+        }
+    }
+
+    createSidebar() {
+        this.panelX = 1180;
+        const topY = 380;
+
+        // Orange Background Pill
+        const sidebar = this.add.graphics();
+        sidebar.fillStyle(0xF5A623, 1); // Orange
+        sidebar.fillRoundedRect(this.panelX - 75, topY, 150, 550, 30);
+        sidebar.lineStyle(4, 0xCC7A00);
+        sidebar.strokeRoundedRect(this.panelX - 75, topY, 150, 550, 30);
+
+        // 1. KEEP SLOT
+        const keepY = topY + 90;
+        this.keepZone = { x: this.panelX, y: keepY }; // logic coordinates
+        
+        // Keep Background (Green)
+        const keepBg = this.add.rectangle(this.panelX, keepY, 100, 100, 0x2ECC71).setOrigin(0.5);
+        keepBg.setStrokeStyle(4, 0xffffff);
+        // Gloss
+        this.add.circle(this.panelX - 30, keepY - 30, 8, 0xffffff, 0.4);
+        
+        this.add.text(this.panelX, keepY + 65, "KEEP", {
+            fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#333'
+        }).setOrigin(0.5);
+
+        // 2. ACTIVE / QUEUE SLOT
+        this.queueY = topY + 270;
+        // White box container for active tile
+        const queueBox = this.add.graphics();
+        queueBox.fillStyle(0xffffff, 1);
+        queueBox.fillRoundedRect(this.panelX - 85, this.queueY - 65, 170, 130, 15);
+        
+        // 3. TRASH
+        const trashY = topY + 460;
+        this.trashZone = { x: this.panelX, y: trashY };
+
+        this.add.text(this.panelX, trashY - 55, "TRASH", {
+            fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#D32F2F'
+        }).setOrigin(0.5);
+
+        const trashBox = this.add.rectangle(this.panelX, trashY + 5, 90, 80, 0xD32F2F).setOrigin(0.5);
+        trashBox.setStrokeStyle(3, 0xffffff);
+        this.add.text(this.panelX, trashY - 5, "🗑", { fontSize: '36px' }).setOrigin(0.5);
+
+        this.trashText = this.add.text(this.panelX, trashY + 25, "X10", {
+            fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#fff'
+        }).setOrigin(0.5);
+    }
+
+    createDecorations() {
+        const g = this.add.graphics();
+        g.fillStyle(0xFFAB91, 0.5);
+        g.fillCircle(150, 850, 80);
+        g.fillCircle(1300, 200, 50);
+        g.fillCircle(250, 250, 30);
+        g.fillCircle(1200, 900, 60);
+    }
+
+    // ==========================================
+    // LOGIC
+    // ==========================================
+
+    fillQueue() {
+        while (this.upcomingQueue.length < 3) {
+            const pool = [2, 2, 3, 3, 4, 4, 5, 5, 6, 8, 9, 10, 12, 15, 20, 25];
+            const val = pool[Phaser.Math.Between(0, Math.min(pool.length-1, 4 + this.level))];
+            this.upcomingQueue.push(val);
+        }
+    }
+
+    spawnNextTile() {
+        // Prevent spawning if one exists
+        if (this.currentActiveTile) return;
+
+        const val = this.upcomingQueue.shift();
+        this.fillQueue();
+
+        // Create the tile container at the Queue position
+        this.currentActiveTile = this.createTileContainer(this.panelX, this.queueY, val);
+        
+        // Make it interactive
+        this.currentActiveTile.setInteractive({ draggable: true, useHandCursor: true });
+        this.input.setDraggable(this.currentActiveTile);
+    }
+
+    createTileContainer(x, y, value) {
+        const container = this.add.container(x, y);
+        container.value = value;
+
+        // Select Color
+        const colorKey = this.colorsList[value % this.colorsList.length];
+        const spriteKey = `tile_${colorKey}`;
+        
+        // If texture is missing, use a fallback rect (debugging safety)
+        let bg;
+        if (this.textures.exists(spriteKey)) {
+            bg = this.add.image(0, 0, spriteKey).setDisplaySize(100, 100);
+        } else {
+            bg = this.add.rectangle(0, 0, 100, 100, 0x888888).setStrokeStyle(2, 0x000);
+        }
+
+        const text = this.add.text(0, 0, value.toString(), {
+            fontFamily: 'Fredoka', fontSize: '42px', fontStyle: 'bold', color: '#333'
+        }).setOrigin(0.5);
+
+        container.add([bg, text]);
+        container.setSize(100, 100);
+        return container;
+    }
+
+    handleDrop(tile) {
+        // Calculate distances to targets
+        const tileX = tile.x;
+        const tileY = tile.y;
+
+        // 1. Check Grid Slots
+        for (let i = 0; i < this.gridSlots.length; i++) {
+            const slot = this.gridSlots[i];
+            const dist = Phaser.Math.Distance.Between(tileX, tileY, slot.x, slot.y);
+            
+            // Threshold for snapping (radius)
+            if (dist < 60) { 
+                if (this.gridArray[i] === null) {
+                    this.placeOnGrid(tile, i);
+                    return;
+                }
+            }
+        }
+
+        // 2. Check Keep Slot
+        const keepDist = Phaser.Math.Distance.Between(tileX, tileY, this.keepZone.x, this.keepZone.y);
+        if (keepDist < 60) {
+            this.swapKeep(tile);
+            return;
+        }
+
+        // 3. Check Trash
+        const trashDist = Phaser.Math.Distance.Between(tileX, tileY, this.trashZone.x, this.trashZone.y);
+        if (trashDist < 60) {
+            this.useTrash(tile);
+            return;
+        }
+
+        // Invalid Drop: Tween back to spawn
+        this.tweens.add({
+            targets: tile,
+            x: this.panelX,
+            y: this.queueY,
+            duration: 200,
+            ease: 'Back.out'
+        });
+    }
+
+    placeOnGrid(tile, index) {
+        const slot = this.gridSlots[index];
+
+        // Disable interaction immediately so it can't be dragged again
+        this.input.setDraggable(tile, false);
+        tile.removeInteractive();
+
+        // Snap visually
+        tile.x = slot.x;
+        tile.y = slot.y;
+
+        // Update State
+        this.gridArray[index] = tile;
+        this.currentActiveTile = null; // Clear reference so we can spawn next
+
+        // Process Game Logic
+        this.checkMerges(index).then(() => {
+            if (this.isGameOver()) {
+                this.scene.pause();
+                alert(`Game Over! Score: ${this.score}`);
+                this.scene.restart();
+            } else {
+                this.spawnNextTile();
+            }
+        });
+    }
+
+    swapKeep(tile) {
+        if (this.keepTileValue === null) {
+            // Store it
+            this.keepTileValue = tile.value;
+            
+            // Move visual to keep slot
+            tile.x = this.keepZone.x;
+            tile.y = this.keepZone.y;
+            tile.setScale(0.8); // Shrink slightly
+            
+            this.input.setDraggable(tile, false);
+            tile.removeInteractive();
+            
+            this.keepTileSprite = tile;
+            this.currentActiveTile = null;
+            this.spawnNextTile();
+        } else {
+            // Swap logic
+            const oldVal = this.keepTileValue;
+            this.keepTileValue = tile.value;
+
+            // Update Keep Visual
+            this.keepTileSprite.destroy(); // Remove old sprite
+            this.keepTileSprite = this.createTileContainer(this.keepZone.x, this.keepZone.y, tile.value);
+            this.keepTileSprite.setScale(0.8);
+            
+            // Destroy the tile user was dragging
+            tile.destroy();
+
+            // Create new active tile with the old kept value
+            this.currentActiveTile = this.createTileContainer(this.panelX, this.queueY, oldVal);
+            this.currentActiveTile.setInteractive({ draggable: true, useHandCursor: true });
+            this.input.setDraggable(this.currentActiveTile);
+        }
+    }
+
+    useTrash(tile) {
+        if (this.trashCount > 0) {
+            this.trashCount--;
+            tile.destroy();
+            this.currentActiveTile = null;
+            this.updateUI();
+            this.spawnNextTile();
+        } else {
+            // Reject
+            this.tweens.add({
+                targets: tile,
+                x: this.panelX,
+                y: this.queueY,
+                duration: 200,
+                ease: 'Back.out'
+            });
+        }
+    }
+
+    // ==========================================
+    // MERGE MECHANICS
+    // ==========================================
+
+    async checkMerges(startIndex) {
+        // Use a loop to settle cascading merges
+        let stable = false;
+        
+        while (!stable) {
+            stable = true; // Assume stable until a merge happens
+            
+            for (let i = 0; i < 16; i++) {
+                if (!this.gridArray[i]) continue;
+
+                const neighbors = this.getNeighbors(i);
+                for (let nIdx of neighbors) {
+                    if (!this.gridArray[nIdx]) continue;
+
+                    const tileA = this.gridArray[i];
+                    const tileB = this.gridArray[nIdx];
+                    const valA = tileA.value;
+                    const valB = tileB.value;
+
+                    // 1. EQUAL -> VANISH
+                    if (valA === valB) {
+                        await this.animateMerge(tileA, tileB, 'vanish');
+                        this.gridArray[i] = null;
+                        this.gridArray[nIdx] = null;
+                        this.addScore(valA * 2);
+                        stable = false; 
+                        break; // Break neighbor loop to restart grid scan
+                    }
+
+                    // 2. DIVISIBLE
+                    let larger = null, smaller = null, lIdx = -1, sIdx = -1;
+                    if (valA > valB && valA % valB === 0) {
+                        larger = tileA; smaller = tileB; lIdx = i; sIdx = nIdx;
+                    } else if (valB > valA && valB % valA === 0) {
+                        larger = tileB; smaller = tileA; lIdx = nIdx; sIdx = i;
+                    }
+
+                    if (larger) {
+                        const result = larger.value / smaller.value;
+                        
+                        if (result === 1) {
+                             await this.animateMerge(larger, smaller, 'vanish');
+                             this.gridArray[lIdx] = null;
+                             this.gridArray[sIdx] = null;
+                        } else {
+                             await this.animateMerge(larger, smaller, 'combine');
+                             this.updateTileVisuals(larger, result);
+                             this.gridArray[sIdx] = null;
+                        }
+                        this.addScore(10);
+                        stable = false;
+                        break;
+                    }
+                }
+                if (!stable) break; // Break grid loop to restart
+            }
+        }
+    }
+
+    getNeighbors(index) {
+        const n = [];
+        const r = Math.floor(index / 4);
+        const c = index % 4;
+        if (r > 0) n.push(index - 4);
+        if (r < 3) n.push(index + 4);
+        if (c > 0) n.push(index - 1);
+        if (c < 3) n.push(index + 1);
+        return n;
+    }
+
+    animateMerge(targetTile, sourceTile, type) {
+        return new Promise(resolve => {
+            // Tween Source into Target
+            this.tweens.add({
+                targets: sourceTile,
+                x: targetTile.x,
+                y: targetTile.y,
+                alpha: 0,
+                duration: 200,
+                onComplete: () => {
+                    sourceTile.destroy();
+                    if (type === 'vanish') {
+                        // If both disappear, tween out target too
+                        this.tweens.add({
+                            targets: targetTile,
+                            scaleX: 0, scaleY: 0, alpha: 0,
+                            duration: 150,
+                            onComplete: () => {
+                                targetTile.destroy();
+                                resolve();
+                            }
+                        });
+                    } else {
+                        resolve();
+                    }
+                }
+            });
+        });
+    }
+
+    updateTileVisuals(container, newVal) {
+        container.value = newVal;
+        container.list[1].setText(newVal.toString());
+        // Update texture color
+        const colorKey = this.colorsList[newVal % this.colorsList.length];
+        // Safety check for texture
+        if (this.textures.exists(`tile_${colorKey}`)) {
+            container.list[0].setTexture(`tile_${colorKey}`);
+        }
+        
+        // Pop animation
+        this.tweens.add({
+            targets: container,
+            scaleX: 1.2, scaleY: 1.2,
+            yoyo: true,
+            duration: 100
+        });
+    }
+
+    // ==========================================
+    // SYSTEM
+    // ==========================================
+
+    addScore(pts) {
+        this.score += pts;
+        if (this.score > this.level * 100) {
+            this.level++;
+            this.trashCount += 2;
+        }
+        this.updateUI();
+    }
+
+    updateUI() {
+        this.scoreText.setText(`SCORE ${this.score}`);
+        this.levelText.setText(`LEVEL ${this.level}`);
+        this.trashText.setText(`X${this.trashCount}`);
+    }
+
+    onTimerTick() {
+        if (!this.isPaused) {
+            this.gameTime++;
+            const m = Math.floor(this.gameTime / 60).toString().padStart(2, '0');
+            const s = (this.gameTime % 60).toString().padStart(2, '0');
+            this.timerText.setText(`${m}:${s}`);
+        }
+    }
+
+    togglePause() {
+        this.isPaused = true;
+        this.scene.pause();
+        this.scene.launch('PauseScene');
+    }
+
+    isGameOver() {
+        // 1. Empty slots exist?
+        if (this.gridArray.some(t => t === null)) return false;
+        
+        // 2. Merges possible?
+        for (let i = 0; i < 16; i++) {
+            const val = this.gridArray[i].value;
+            const neighbors = this.getNeighbors(i);
+            for (let ni of neighbors) {
+                const nVal = this.gridArray[ni].value;
+                if (val === nVal || val % nVal === 0 || nVal % val === 0) return false;
+            }
+        }
+        return true;
+    }
+}
+
+==========================================
+FILE: C:\Users\femi6\OneDrive\Desktop\game11\scenes\PauseScene.js
+==========================================
+class PauseScene extends Phaser.Scene {
+    constructor() {
+        super('PauseScene');
+    }
+
+    create() {
+        const w = this.scale.width;
+        const h = this.scale.height;
+
+        // Overlay
+        this.add.rectangle(w/2, h/2, w, h, 0x000000, 0.7);
+
+        // Box
+        const box = this.add.rectangle(w/2, h/2, 500, 300, 0xffffff).setStrokeStyle(8, 0x008B9C, 1);
+        
+        // Text
+        this.add.text(w/2, h/2 - 60, "PAUSED", {
+            fontFamily: 'Fredoka', fontSize: '60px', color: '#333', fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Resume Button
+        const btn = this.add.rectangle(w/2, h/2 + 60, 220, 70, 0xF5A623).setInteractive({ useHandCursor: true });
+        btn.setStrokeStyle(4, 0xffffff);
+        
+        const btnText = this.add.text(w/2, h/2 + 60, "RESUME", {
+            fontFamily: 'Fredoka', fontSize: '32px', color: '#fff', fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        btn.on('pointerdown', () => {
+            this.scene.resume('GameScene');
+            this.scene.stop();
+        });
+        
+        // Hover effect
+        btn.on('pointerover', () => btn.setFillStyle(0xFFB74D));
+        btn.on('pointerout', () => btn.setFillStyle(0xF5A623));
+    }
+}
+
+==========================================
+FILE: C:\Users\femi6\OneDrive\Desktop\game11\scenes\UIScene.js
+==========================================
+class UIScene extends Phaser.Scene {
+  constructor() {
+    super('UIScene');
+  }
+
+  create() {
+    const w = this.cameras.main.width;
+
+    this.scoreText = this.add.text(20, 20, 'Score: 0', { fontSize: '20px', color: '#1f2d3d' });
+    this.levelText = this.add.text(20, 46, 'Level: 1', { fontSize: '18px', color: '#1f2d3d' });
+    this.timerText = this.add.text(w - 20, 20, 'Time: 0', { fontSize: '20px', color: '#1f2d3d' }).setOrigin(1,0);
+
+    // hint button
+    const hintBox = this.add.rectangle(w - 20, 62, 120, 36, 0xffffff).setOrigin(1,0).setStrokeStyle(2, 0x4e85ff);
+    this.hintText = this.add.text(w - 80, 70, 'Hint', { fontSize: '18px', color: '#1f2d3d' }).setOrigin(0.5);
+    hintBox.setInteractive({ useHandCursor: true }).on('pointerdown', () => {
+      this.scene.get('GameScene').useHint();
+    });
+
+    // Listen to events from GameScene
+    const gameScene = this.scene.get('GameScene');
+    gameScene.events.on('updateHUD', this.updateHUD, this);
+    gameScene.events.on('timeUpdate', (t) => { this.timerText.setText('Time: ' + t); }, this);
+    gameScene.events.on('gameOver', (data) => { this.showEndPopup(data); }, this);
+    gameScene.events.on('flash', (msg, color) => { this.flash(msg, color); }, this);
+  }
+
+  updateHUD(score, level) {
+    this.scoreText.setText('Score: ' + score);
+    this.levelText.setText('Level: ' + level);
+  }
+
+  flash(msg, color = '#2ecc71') {
+    const w = this.cameras.main.width;
+    const t = this.add.text(w/2, 120, msg, { fontSize: '28px', color }).setOrigin(0.5);
+    this.tweens.add({
+      targets: t,
+      alpha: 0,
+      duration: 1200,
+      onComplete: () => t.destroy()
+    });
+  }
+
+  showEndPopup({ score, level }) {
+    const w = this.cameras.main.width;
+    const h = this.cameras.main.height;
+    const bg = this.add.rectangle(w/2, h/2, 520, 300, 0xffffff).setStrokeStyle(2, 0x2c3e50);
+    const txt = this.add.text(w/2, h/2 - 40, 'Game Over', { fontSize: '36px', color: '#1f2d3d' }).setOrigin(0.5);
+    const detail = this.add.text(w/2, h/2, `Score: ${score}\nLevel: ${level}`, { fontSize: '20px', color: '#34495e', align: 'center' }).setOrigin(0.5);
+    const btn = this.add.text(w/2, h/2 + 80, 'Restart', { fontSize: '22px', backgroundColor: '#4e85ff', color: '#fff', padding: { x: 12, y: 8 } }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+    btn.on('pointerdown', () => {
+      this.scene.stop('GameScene');
+      this.scene.start('GameScene');
+      this.scene.bringToTop();
+      bg.destroy(); txt.destroy(); detail.destroy(); btn.destroy();
+    });
+  }
+}
+
