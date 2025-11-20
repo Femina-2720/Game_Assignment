@@ -7,10 +7,10 @@ class PauseScene extends Phaser.Scene {
         const w = this.scale.width;
         const h = this.scale.height;
 
-        // Overlay
+        // Dark Overlay
         this.add.rectangle(w/2, h/2, w, h, 0x000000, 0.7);
 
-        // Box
+        // Pause Box
         const box = this.add.rectangle(w/2, h/2, 500, 300, 0xffffff).setStrokeStyle(8, 0x008B9C, 1);
         
         // Text
@@ -26,11 +26,10 @@ class PauseScene extends Phaser.Scene {
             fontFamily: 'Fredoka', fontSize: '32px', color: '#fff', fontStyle: 'bold'
         }).setOrigin(0.5);
 
+        // Interaction
         btn.on('pointerdown', () => {
-            // 1. Stop this scene
-            this.scene.stop();
-            // 2. Resume the GameScene
             this.scene.resume('GameScene');
+            this.scene.stop();
         });
         
         btn.on('pointerover', () => btn.setFillStyle(0xFFB74D));

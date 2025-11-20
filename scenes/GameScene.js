@@ -7,10 +7,14 @@ class GameScene extends Phaser.Scene {
         // --- Game State ---
         this.gridArray = Array(16).fill(null);
         this.upcomingQueue = [];
+        
+        // Keep Slot State
         this.keepTileValue = null;
         this.keepTileSprite = null; // The visual in the Keep slot
+
+        // Active / Queue State
         this.currentActiveTile = null; // The tile being dragged
-        this.nextTilePreview = null; // The static preview of the next tile
+        this.nextTilePreview = null;   // The static preview of the next tile
         
         this.score = 0;
         this.level = 1;
@@ -22,7 +26,7 @@ class GameScene extends Phaser.Scene {
         this.timerEvent = null;
         this.isPaused = false;
 
-        // --- Configuration ---
+        // --- Layout Configuration ---
         this.GRID_SPACING = 125;
         this.GRID_START_X = 720 - (1.5 * this.GRID_SPACING); 
         this.GRID_START_Y = 550; 
@@ -35,22 +39,24 @@ class GameScene extends Phaser.Scene {
         this.add.image(720, 512, 'bg').setDisplaySize(1440, 1024);
         this.createDecorations();
 
-        // 2. Setup Pause/Resume Listener
+        // 2. Pause/Resume Handling
         this.events.on('resume', () => {
             this.isPaused = false;
-            this.timerEvent.paused = false;
+            if(this.timerEvent) this.timerEvent.paused = false;
         });
 
         this.events.on('pause', () => {
             this.isPaused = true;
-            this.timerEvent.paused = true;
+            if(this.timerEvent) this.timerEvent.paused = true;
         });
 
-        // 3. Input Listeners (One-time setup)
+        // 3. Global Input Listeners (Added only once)
         this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
             if (!this.isPaused) {
                 gameObject.x = dragX;
                 gameObject.y = dragY;
+                // Bring to top while dragging so it doesn't go behind UI
+                this.children.bringToTop(gameObject);
             }
         });
 
@@ -60,12 +66,12 @@ class GameScene extends Phaser.Scene {
             }
         });
 
-        // 4. UI Components
+        // 4. UI Setup
         this.createHeader();
         this.createGridSystem();
         this.createSidebar();
 
-        // 5. Logic Start
+        // 5. Start Logic
         this.fillQueue();
         this.spawnNextTile(); 
         this.updateUI();
@@ -115,6 +121,7 @@ class GameScene extends Phaser.Scene {
     }
 
     createGridSystem() {
+        // Cat
         this.add.image(720, 330, 'cat').setScale(0.9).setDepth(5);
 
         // Badges
@@ -128,26 +135,29 @@ class GameScene extends Phaser.Scene {
             fontFamily: 'Fredoka', fontSize: '26px', fontStyle: 'bold', color: '#fff'
         }).setOrigin(0.5).setDepth(5);
 
-        // Grid Background
+        // Grid Background Box
         const gridBg = this.add.graphics();
         gridBg.fillStyle(0x008B9C, 1);
+        // Calculate centered rect
         gridBg.fillRoundedRect(720 - 270, this.GRID_START_Y + 187.5 - 270, 540, 540, 25);
         gridBg.lineStyle(5, 0xffffff);
         gridBg.strokeRoundedRect(720 - 270, this.GRID_START_Y + 187.5 - 270, 540, 540, 25);
 
-        // Slots
+        // Grid Slots
         this.gridSlots = [];
         for (let r = 0; r < 4; r++) {
             for (let c = 0; c < 4; c++) {
                 const x = this.GRID_START_X + (c * this.GRID_SPACING);
                 const y = this.GRID_START_Y + (r * this.GRID_SPACING);
 
+                // Visual Slot
                 const slotVis = this.add.graphics();
                 slotVis.fillStyle(0x006d7a, 1);
                 slotVis.fillRoundedRect(x - 55, y - 55, 110, 110, 15);
                 slotVis.lineStyle(2, 0x4DD0E1);
                 slotVis.strokeRoundedRect(x - 55, y - 55, 110, 110, 15);
 
+                // Interaction Zone
                 const zone = this.add.zone(x, y, 110, 110).setRectangleDropZone(110, 110);
                 zone.gridIndex = (r * 4) + c;
                 this.gridSlots.push({ x, y, zone });
@@ -159,7 +169,7 @@ class GameScene extends Phaser.Scene {
         this.panelX = 1180;
         const topY = 380;
 
-        // Background
+        // Sidebar Background
         const sidebar = this.add.graphics();
         sidebar.fillStyle(0xF5A623, 1);
         sidebar.fillRoundedRect(this.panelX - 85, topY, 170, 550, 30);
@@ -168,29 +178,29 @@ class GameScene extends Phaser.Scene {
 
         // 1. KEEP SLOT
         const keepY = topY + 90;
-        this.keepZone = { x: this.panelX, y: keepY }; 
+        this.keepZone = this.add.zone(this.panelX, keepY, 110, 110).setRectangleDropZone(110, 110);
         
         const keepBg = this.add.rectangle(this.panelX, keepY, 100, 100, 0x2ECC71).setOrigin(0.5);
         keepBg.setStrokeStyle(4, 0xffffff);
         this.add.circle(this.panelX - 30, keepY - 30, 8, 0xffffff, 0.4);
         this.add.text(this.panelX, keepY + 65, "KEEP", { fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#333' }).setOrigin(0.5);
 
-        // 2. QUEUE BOX (Double width)
+        // 2. QUEUE BOX (Wider to show Next tile)
         this.queueY = topY + 270;
         const queueBox = this.add.graphics();
         queueBox.fillStyle(0xffffff, 1);
-        // Make box wider to fit two tiles (Active + Next)
+        // Adjusted width to 160 to fit two small tiles
         queueBox.fillRoundedRect(this.panelX - 80, this.queueY - 65, 160, 130, 15);
         queueBox.lineStyle(2, 0xbdc3c7);
         queueBox.strokeRoundedRect(this.panelX - 80, this.queueY - 65, 160, 130, 15);
 
-        // Coordinates for Active Tile and Preview Tile
+        // Define Positions
         this.activeTilePos = { x: this.panelX - 35, y: this.queueY };
         this.previewTilePos = { x: this.panelX + 45, y: this.queueY };
 
-        // 3. TRASH
+        // 3. TRASH SLOT
         const trashY = topY + 460;
-        this.trashZone = { x: this.panelX, y: trashY };
+        this.trashZone = this.add.zone(this.panelX, trashY, 110, 110).setRectangleDropZone(110, 110);
         
         this.add.text(this.panelX, trashY - 55, "TRASH", { fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#D32F2F' }).setOrigin(0.5);
         const trashBox = this.add.rectangle(this.panelX, trashY + 5, 90, 80, 0xD32F2F).setOrigin(0.5);
@@ -207,7 +217,7 @@ class GameScene extends Phaser.Scene {
     }
 
     // ==========================================
-    // GAME LOGIC
+    // GAME LOGIC - QUEUE & SPAWNING
     // ==========================================
 
     fillQueue() {
@@ -219,35 +229,32 @@ class GameScene extends Phaser.Scene {
     }
 
     spawnNextTile() {
-        if (this.currentActiveTile) return; // Don't spawn if one exists
+        if (this.currentActiveTile) return; // Don't spawn if we already have a dragger
 
-        // 1. Get new active value
+        // 1. Shift Queue
         const val = this.upcomingQueue.shift();
-        this.fillQueue(); // Replenish
+        this.fillQueue(); 
 
         // 2. Create Draggable Active Tile
         this.currentActiveTile = this.createTileContainer(this.activeTilePos.x, this.activeTilePos.y, val);
+        this.currentActiveTile.isKeepTile = false; // Important flag
         this.currentActiveTile.setInteractive({ draggable: true, useHandCursor: true });
         this.input.setDraggable(this.currentActiveTile);
 
-        // 3. Update the "Next" Preview (The grey tile to the right)
+        // 3. Update Preview
         this.updateNextPreview();
     }
 
     updateNextPreview() {
-        // Remove old preview
-        if (this.nextTilePreview) {
-            this.nextTilePreview.destroy();
-        }
+        if (this.nextTilePreview) this.nextTilePreview.destroy();
 
         const nextVal = this.upcomingQueue[0];
-        // Create a smaller, static, greyed-out tile
         this.nextTilePreview = this.createTileContainer(this.previewTilePos.x, this.previewTilePos.y, nextVal);
         this.nextTilePreview.setScale(0.7);
         this.nextTilePreview.setAlpha(0.8);
         
-        // Make it look inactive (grey tint or overlay)
-        const darkOverlay = this.add.rectangle(0,0, 100, 100, 0x000000, 0.3);
+        // Add dark overlay to indicate it's not active yet
+        const darkOverlay = this.add.rectangle(0,0, 100, 100, 0x000000, 0.2);
         this.nextTilePreview.add(darkOverlay);
     }
 
@@ -274,14 +281,18 @@ class GameScene extends Phaser.Scene {
         return container;
     }
 
-    handleDrop(tile) {
-        const tileX = tile.x;
-        const tileY = tile.y;
+    // ==========================================
+    // INTERACTION LOGIC
+    // ==========================================
 
-        // 1. Grid
+    handleDrop(tile) {
+        // Use bounds for collision detection (better than distance)
+        const tileBounds = tile.getBounds();
+
+        // 1. Check Grid Drop
         for (let i = 0; i < this.gridSlots.length; i++) {
             const slot = this.gridSlots[i];
-            if (Phaser.Math.Distance.Between(tileX, tileY, slot.x, slot.y) < 60) { 
+            if (Phaser.Geom.Intersects.RectangleToRectangle(tileBounds, slot.zone.getBounds())) {
                 if (this.gridArray[i] === null) {
                     this.placeOnGrid(tile, i);
                     return;
@@ -289,23 +300,35 @@ class GameScene extends Phaser.Scene {
             }
         }
 
-        // 2. Keep
-        if (Phaser.Math.Distance.Between(tileX, tileY, this.keepZone.x, this.keepZone.y) < 60) {
-            this.swapKeep(tile);
-            return;
+        // 2. Check Keep Drop
+        if (Phaser.Geom.Intersects.RectangleToRectangle(tileBounds, this.keepZone.getBounds())) {
+            // Cannot move a Keep tile back into Keep
+            if (!tile.isKeepTile) {
+                this.swapKeep(tile);
+                return;
+            }
         }
 
-        // 3. Trash
-        if (Phaser.Math.Distance.Between(tileX, tileY, this.trashZone.x, this.trashZone.y) < 60) {
+        // 3. Check Trash Drop
+        if (Phaser.Geom.Intersects.RectangleToRectangle(tileBounds, this.trashZone.getBounds())) {
             this.useTrash(tile);
             return;
         }
 
-        // Return to Spawn
+        // Invalid Drop: Return to origin
+        let homeX, homeY;
+        if (tile.isKeepTile) {
+            homeX = this.keepZone.x;
+            homeY = this.keepZone.y;
+        } else {
+            homeX = this.activeTilePos.x;
+            homeY = this.activeTilePos.y;
+        }
+
         this.tweens.add({
             targets: tile,
-            x: this.activeTilePos.x,
-            y: this.activeTilePos.y,
+            x: homeX,
+            y: homeY,
             duration: 200,
             ease: 'Back.out'
         });
@@ -313,12 +336,24 @@ class GameScene extends Phaser.Scene {
 
     placeOnGrid(tile, index) {
         const slot = this.gridSlots[index];
+        
+        // Lock the tile to the grid
         this.input.setDraggable(tile, false);
         tile.removeInteractive();
+        
         tile.x = slot.x;
         tile.y = slot.y;
+        tile.setScale(1.0); // Ensure scale is normal
+
         this.gridArray[index] = tile;
-        this.currentActiveTile = null;
+
+        // Clean up state variables depending on where tile came from
+        if (tile.isKeepTile) {
+            this.keepTileValue = null;
+            this.keepTileSprite = null;
+        } else {
+            this.currentActiveTile = null;
+        }
 
         this.checkMerges(index).then(() => {
             if (this.isGameOver()) {
@@ -326,41 +361,52 @@ class GameScene extends Phaser.Scene {
                 alert(`Game Over! Score: ${this.score}`);
                 this.scene.restart();
             } else {
-                this.spawnNextTile();
+                // Only spawn next if the Active tile was used (Keep tile usage doesn't advance queue)
+                if (!this.currentActiveTile) {
+                    this.spawnNextTile();
+                }
             }
         });
     }
 
     swapKeep(tile) {
+        // FIXED: Do NOT remove interactivity. Set flag isKeepTile = true.
+
         if (this.keepTileValue === null) {
-            // 1. Keep is empty: Store active, Spawn NEW active
+            // Case A: Keep is empty
             this.keepTileValue = tile.value;
             
             tile.x = this.keepZone.x;
             tile.y = this.keepZone.y;
             tile.setScale(0.8);
-            this.input.setDraggable(tile, false);
-            tile.removeInteractive();
             
+            // Important: It stays interactive!
+            tile.isKeepTile = true; 
             this.keepTileSprite = tile;
-            this.currentActiveTile = null;
             
+            this.currentActiveTile = null;
             this.spawnNextTile();
         } else {
-            // 2. Keep is full: SWAP active with keep. Do NOT spawn new from queue.
+            // Case B: Keep has a tile -> Swap logic
             const oldKeptVal = this.keepTileValue;
             this.keepTileValue = tile.value;
 
-            // Update visual in keep box
+            // Destroy the visual currently in Keep
             if (this.keepTileSprite) this.keepTileSprite.destroy();
+
+            // Create new Visual in Keep (from the dragged tile)
             this.keepTileSprite = this.createTileContainer(this.keepZone.x, this.keepZone.y, tile.value);
             this.keepTileSprite.setScale(0.8);
+            this.keepTileSprite.isKeepTile = true;
+            this.keepTileSprite.setInteractive({ draggable: true, useHandCursor: true });
+            this.input.setDraggable(this.keepTileSprite);
 
-            // Destroy dragged tile
+            // Destroy the dragged tile
             tile.destroy();
 
-            // Create new active tile using the OLD kept value
+            // Create new Active Tile (from the old kept value)
             this.currentActiveTile = this.createTileContainer(this.activeTilePos.x, this.activeTilePos.y, oldKeptVal);
+            this.currentActiveTile.isKeepTile = false;
             this.currentActiveTile.setInteractive({ draggable: true, useHandCursor: true });
             this.input.setDraggable(this.currentActiveTile);
         }
@@ -369,24 +415,37 @@ class GameScene extends Phaser.Scene {
     useTrash(tile) {
         if (this.trashCount > 0) {
             this.trashCount--;
+            
+            // Clean up references
+            if (tile.isKeepTile) {
+                this.keepTileValue = null;
+                this.keepTileSprite = null;
+            } else {
+                this.currentActiveTile = null;
+            }
+
             tile.destroy();
-            this.currentActiveTile = null;
             this.updateUI();
-            this.spawnNextTile();
+
+            // Only spawn if we trashed the active tile
+            if (!this.currentActiveTile) {
+                this.spawnNextTile();
+            }
         } else {
-            // Bounce back
+            // Fail animation (bounce back)
+            let homeX = tile.isKeepTile ? this.keepZone.x : this.activeTilePos.x;
+            let homeY = tile.isKeepTile ? this.keepZone.y : this.activeTilePos.y;
+            
             this.tweens.add({
                 targets: tile,
-                x: this.activeTilePos.x,
-                y: this.activeTilePos.y,
-                duration: 200,
-                ease: 'Back.out'
+                x: homeX, y: homeY,
+                duration: 200, ease: 'Back.out'
             });
         }
     }
 
     // ==========================================
-    // MERGE & UTILS
+    // MERGE LOGIC
     // ==========================================
 
     async checkMerges(startIndex) {
@@ -398,11 +457,13 @@ class GameScene extends Phaser.Scene {
                 const neighbors = this.getNeighbors(i);
                 for (let nIdx of neighbors) {
                     if (!this.gridArray[nIdx]) continue;
+                    
                     const tileA = this.gridArray[i];
                     const tileB = this.gridArray[nIdx];
                     const valA = tileA.value;
                     const valB = tileB.value;
 
+                    // 1. EQUAL -> VANISH
                     if (valA === valB) {
                         await this.animateMerge(tileA, tileB, 'vanish');
                         this.gridArray[i] = null;
@@ -412,6 +473,7 @@ class GameScene extends Phaser.Scene {
                         break;
                     }
 
+                    // 2. DIVISIBLE
                     let larger = null, smaller = null, lIdx = -1, sIdx = -1;
                     if (valA > valB && valA % valB === 0) { larger = tileA; smaller = tileB; lIdx = i; sIdx = nIdx; }
                     else if (valB > valA && valB % valA === 0) { larger = tileB; smaller = tileA; lIdx = nIdx; sIdx = i; }

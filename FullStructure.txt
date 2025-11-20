@@ -1,7 +1,7 @@
 === DIRECTORY TREE ===
 
-Folder PATH listing for volume Windows
-Volume serial number is CA9B-F22D
+Folder PATH listing for volume OS
+Volume serial number is C658-6741
 C:.
 |   FullStructure.txt
 |   game.js
@@ -34,12 +34,12 @@ C:.
 
 
 ==========================================
-FILE: C:\Users\femi6\OneDrive\Desktop\game11\FullStructure.txt
+FILE: C:\Users\study\OneDrive\Desktop\Game_Assignment\FullStructure.txt
 ==========================================
 === DIRECTORY TREE ===
 
-Folder PATH listing for volume Windows
-Volume serial number is CA9B-F22D
+Folder PATH listing for volume OS
+Volume serial number is C658-6741
 C:.
 |   FullStructure.txt
 |   game.js
@@ -72,12 +72,12 @@ C:.
 
 
 ==========================================
-FILE: C:\Users\femi6\OneDrive\Desktop\game11\FullStructure.txt
+FILE: C:\Users\study\OneDrive\Desktop\Game_Assignment\FullStructure.txt
 ==========================================
 
 
 ==========================================
-FILE: C:\Users\femi6\OneDrive\Desktop\game11\game.js
+FILE: C:\Users\study\OneDrive\Desktop\Game_Assignment\game.js
 ==========================================
 const config = {
     type: Phaser.AUTO,
@@ -95,7 +95,7 @@ const config = {
 const game = new Phaser.Game(config);
 
 ==========================================
-FILE: C:\Users\femi6\OneDrive\Desktop\game11\index.html
+FILE: C:\Users\study\OneDrive\Desktop\Game_Assignment\index.html
 ==========================================
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +121,7 @@ FILE: C:\Users\femi6\OneDrive\Desktop\game11\index.html
 </html>
 
 ==========================================
-FILE: C:\Users\femi6\OneDrive\Desktop\game11\style.css
+FILE: C:\Users\study\OneDrive\Desktop\Game_Assignment\style.css
 ==========================================
 body {
     margin: 0;
@@ -141,34 +141,34 @@ body {
     overflow: hidden;
 }
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\blue.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\blue.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Cat.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\Cat.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Desktop_JustDivide_Game_2.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\Desktop_JustDivide_Game_2.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\eklavya.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\eklavya.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\JustDivide_Game_13.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\JustDivide_Game_13.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Landscape_JustDivide_Game_2.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\Landscape_JustDivide_Game_2.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Levels and Score.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\Levels and Score.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\orange.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\orange.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\pink.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\pink.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Placement_Box.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\Placement_Box.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\Potraite_JustDivide_Game_2.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\Potraite_JustDivide_Game_2.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\purpule.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\purpule.png]
 
-[Skipped binary file: C:\Users\femi6\OneDrive\Desktop\game11\assets\red.png]
+[Skipped binary file: C:\Users\study\OneDrive\Desktop\Game_Assignment\assets\red.png]
 
 ==========================================
-FILE: C:\Users\femi6\OneDrive\Desktop\game11\scenes\BootScene.js
+FILE: C:\Users\study\OneDrive\Desktop\Game_Assignment\scenes\BootScene.js
 ==========================================
 class BootScene extends Phaser.Scene {
     constructor() {
@@ -204,7 +204,7 @@ class BootScene extends Phaser.Scene {
 }
 
 ==========================================
-FILE: C:\Users\femi6\OneDrive\Desktop\game11\scenes\GameScene.js
+FILE: C:\Users\study\OneDrive\Desktop\Game_Assignment\scenes\GameScene.js
 ==========================================
 class GameScene extends Phaser.Scene {
     constructor() {
@@ -216,8 +216,9 @@ class GameScene extends Phaser.Scene {
         this.gridArray = Array(16).fill(null);
         this.upcomingQueue = [];
         this.keepTileValue = null;
-        this.keepTileSprite = null;
-        this.currentActiveTile = null;
+        this.keepTileSprite = null; // The visual in the Keep slot
+        this.currentActiveTile = null; // The tile being dragged
+        this.nextTilePreview = null; // The static preview of the next tile
         
         this.score = 0;
         this.level = 1;
@@ -230,13 +231,9 @@ class GameScene extends Phaser.Scene {
         this.isPaused = false;
 
         // --- Configuration ---
-        this.TILE_SIZE = 105; // Slightly smaller to fit comfortably
-        // Grid Calculation: 
-        // Center X = 720. Grid width approx 4 * 125 = 500. 
-        // Start X = 720 - (1.5 * 125) = 532.5
         this.GRID_SPACING = 125;
         this.GRID_START_X = 720 - (1.5 * this.GRID_SPACING); 
-        this.GRID_START_Y = 550; // Shifted down to make room for Cat
+        this.GRID_START_Y = 550; 
         
         this.colorsList = ['blue', 'red', 'purple', 'orange', 'pink'];
     }
@@ -246,7 +243,18 @@ class GameScene extends Phaser.Scene {
         this.add.image(720, 512, 'bg').setDisplaySize(1440, 1024);
         this.createDecorations();
 
-        // 2. Global Input Listeners (FIXED: moved here so they are added only ONCE)
+        // 2. Setup Pause/Resume Listener
+        this.events.on('resume', () => {
+            this.isPaused = false;
+            this.timerEvent.paused = false;
+        });
+
+        this.events.on('pause', () => {
+            this.isPaused = true;
+            this.timerEvent.paused = true;
+        });
+
+        // 3. Input Listeners (One-time setup)
         this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
             if (!this.isPaused) {
                 gameObject.x = dragX;
@@ -260,21 +268,17 @@ class GameScene extends Phaser.Scene {
             }
         });
 
-        // 3. Top Header
+        // 4. UI Components
         this.createHeader();
-
-        // 4. Main Game Area (Grid & Cat)
         this.createGridSystem();
-
-        // 5. Right Sidebar (Keep, Next, Trash)
         this.createSidebar();
 
-        // 6. Logic Start
+        // 5. Logic Start
         this.fillQueue();
-        this.spawnNextTile(); // Initial spawn
+        this.spawnNextTile(); 
         this.updateUI();
 
-        // 7. Timer
+        // 6. Timer
         this.timerEvent = this.time.addEvent({ 
             delay: 1000, 
             callback: this.onTimerTick, 
@@ -291,7 +295,11 @@ class GameScene extends Phaser.Scene {
         // Pause Button
         const pauseBtn = this.add.circle(70, 70, 35, 0x9b51e0).setInteractive({ useHandCursor: true });
         this.add.text(70, 70, "II", { fontFamily: 'Fredoka', fontSize: '28px', color: '#fff', fontStyle:'bold' }).setOrigin(0.5);
-        pauseBtn.on('pointerdown', () => this.togglePause());
+        
+        pauseBtn.on('pointerdown', () => {
+            this.scene.launch('PauseScene');
+            this.scene.pause();
+        });
 
         // Help Button
         const helpBtn = this.add.circle(1370, 70, 35, 0x00C853).setInteractive({ useHandCursor: true });
@@ -302,7 +310,7 @@ class GameScene extends Phaser.Scene {
             fontFamily: 'Fredoka', fontSize: '60px', fontStyle: 'bold', color: '#2c3e50'
         }).setOrigin(0.5);
 
-        // Timer Display
+        // Timer
         this.add.text(720, 130, "⏳", { fontSize: '28px' }).setOrigin(1, 0.5);
         this.timerText = this.add.text(730, 130, "00:00", {
             fontFamily: 'Fredoka', fontSize: '32px', color: '#2c3e50', fontStyle: 'bold'
@@ -315,33 +323,25 @@ class GameScene extends Phaser.Scene {
     }
 
     createGridSystem() {
-        // Cat Character
         this.add.image(720, 330, 'cat').setScale(0.9).setDepth(5);
 
-        // Badges (Level & Score)
-        // Left Badge
+        // Badges
         this.add.image(600, 420, 'levelScore').setScale(0.85).setDepth(4);
         this.levelText = this.add.text(600, 420, "LEVEL 1", {
             fontFamily: 'Fredoka', fontSize: '26px', fontStyle: 'bold', color: '#fff'
         }).setOrigin(0.5).setDepth(5);
 
-        // Right Badge
         this.add.image(840, 420, 'levelScore').setScale(0.85).setDepth(4);
         this.scoreText = this.add.text(840, 420, "SCORE 0", {
             fontFamily: 'Fredoka', fontSize: '26px', fontStyle: 'bold', color: '#fff'
         }).setOrigin(0.5).setDepth(5);
 
-        // Teal Grid Background
-        const gridW = 540;
-        const gridH = 540;
-        const gridX = 720;
-        const gridY = this.GRID_START_Y + (1.5 * 125); // Center of the grid array
-
+        // Grid Background
         const gridBg = this.add.graphics();
-        gridBg.fillStyle(0x008B9C, 1); // Dark Teal
-        gridBg.fillRoundedRect(gridX - gridW/2, gridY - gridH/2, gridW, gridH, 25);
+        gridBg.fillStyle(0x008B9C, 1);
+        gridBg.fillRoundedRect(720 - 270, this.GRID_START_Y + 187.5 - 270, 540, 540, 25);
         gridBg.lineStyle(5, 0xffffff);
-        gridBg.strokeRoundedRect(gridX - gridW/2, gridY - gridH/2, gridW, gridH, 25);
+        gridBg.strokeRoundedRect(720 - 270, this.GRID_START_Y + 187.5 - 270, 540, 540, 25);
 
         // Slots
         this.gridSlots = [];
@@ -350,14 +350,12 @@ class GameScene extends Phaser.Scene {
                 const x = this.GRID_START_X + (c * this.GRID_SPACING);
                 const y = this.GRID_START_Y + (r * this.GRID_SPACING);
 
-                // Empty Slot Visual
                 const slotVis = this.add.graphics();
-                slotVis.fillStyle(0x006d7a, 1); // Slightly darker teal for empty slot
+                slotVis.fillStyle(0x006d7a, 1);
                 slotVis.fillRoundedRect(x - 55, y - 55, 110, 110, 15);
                 slotVis.lineStyle(2, 0x4DD0E1);
                 slotVis.strokeRoundedRect(x - 55, y - 55, 110, 110, 15);
 
-                // Hit Zone
                 const zone = this.add.zone(x, y, 110, 110).setRectangleDropZone(110, 110);
                 zone.gridIndex = (r * 4) + c;
                 this.gridSlots.push({ x, y, zone });
@@ -369,49 +367,44 @@ class GameScene extends Phaser.Scene {
         this.panelX = 1180;
         const topY = 380;
 
-        // Orange Background Pill
+        // Background
         const sidebar = this.add.graphics();
-        sidebar.fillStyle(0xF5A623, 1); // Orange
-        sidebar.fillRoundedRect(this.panelX - 75, topY, 150, 550, 30);
+        sidebar.fillStyle(0xF5A623, 1);
+        sidebar.fillRoundedRect(this.panelX - 85, topY, 170, 550, 30);
         sidebar.lineStyle(4, 0xCC7A00);
-        sidebar.strokeRoundedRect(this.panelX - 75, topY, 150, 550, 30);
+        sidebar.strokeRoundedRect(this.panelX - 85, topY, 170, 550, 30);
 
         // 1. KEEP SLOT
         const keepY = topY + 90;
-        this.keepZone = { x: this.panelX, y: keepY }; // logic coordinates
+        this.keepZone = { x: this.panelX, y: keepY }; 
         
-        // Keep Background (Green)
         const keepBg = this.add.rectangle(this.panelX, keepY, 100, 100, 0x2ECC71).setOrigin(0.5);
         keepBg.setStrokeStyle(4, 0xffffff);
-        // Gloss
         this.add.circle(this.panelX - 30, keepY - 30, 8, 0xffffff, 0.4);
-        
-        this.add.text(this.panelX, keepY + 65, "KEEP", {
-            fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#333'
-        }).setOrigin(0.5);
+        this.add.text(this.panelX, keepY + 65, "KEEP", { fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#333' }).setOrigin(0.5);
 
-        // 2. ACTIVE / QUEUE SLOT
+        // 2. QUEUE BOX (Double width)
         this.queueY = topY + 270;
-        // White box container for active tile
         const queueBox = this.add.graphics();
         queueBox.fillStyle(0xffffff, 1);
-        queueBox.fillRoundedRect(this.panelX - 85, this.queueY - 65, 170, 130, 15);
-        
+        // Make box wider to fit two tiles (Active + Next)
+        queueBox.fillRoundedRect(this.panelX - 80, this.queueY - 65, 160, 130, 15);
+        queueBox.lineStyle(2, 0xbdc3c7);
+        queueBox.strokeRoundedRect(this.panelX - 80, this.queueY - 65, 160, 130, 15);
+
+        // Coordinates for Active Tile and Preview Tile
+        this.activeTilePos = { x: this.panelX - 35, y: this.queueY };
+        this.previewTilePos = { x: this.panelX + 45, y: this.queueY };
+
         // 3. TRASH
         const trashY = topY + 460;
         this.trashZone = { x: this.panelX, y: trashY };
-
-        this.add.text(this.panelX, trashY - 55, "TRASH", {
-            fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#D32F2F'
-        }).setOrigin(0.5);
-
+        
+        this.add.text(this.panelX, trashY - 55, "TRASH", { fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#D32F2F' }).setOrigin(0.5);
         const trashBox = this.add.rectangle(this.panelX, trashY + 5, 90, 80, 0xD32F2F).setOrigin(0.5);
         trashBox.setStrokeStyle(3, 0xffffff);
         this.add.text(this.panelX, trashY - 5, "🗑", { fontSize: '36px' }).setOrigin(0.5);
-
-        this.trashText = this.add.text(this.panelX, trashY + 25, "X10", {
-            fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#fff'
-        }).setOrigin(0.5);
+        this.trashText = this.add.text(this.panelX, trashY + 25, "X10", { fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#fff' }).setOrigin(0.5);
     }
 
     createDecorations() {
@@ -419,16 +412,14 @@ class GameScene extends Phaser.Scene {
         g.fillStyle(0xFFAB91, 0.5);
         g.fillCircle(150, 850, 80);
         g.fillCircle(1300, 200, 50);
-        g.fillCircle(250, 250, 30);
-        g.fillCircle(1200, 900, 60);
     }
 
     // ==========================================
-    // LOGIC
+    // GAME LOGIC
     // ==========================================
 
     fillQueue() {
-        while (this.upcomingQueue.length < 3) {
+        while (this.upcomingQueue.length < 5) {
             const pool = [2, 2, 3, 3, 4, 4, 5, 5, 6, 8, 9, 10, 12, 15, 20, 25];
             const val = pool[Phaser.Math.Between(0, Math.min(pool.length-1, 4 + this.level))];
             this.upcomingQueue.push(val);
@@ -436,29 +427,45 @@ class GameScene extends Phaser.Scene {
     }
 
     spawnNextTile() {
-        // Prevent spawning if one exists
-        if (this.currentActiveTile) return;
+        if (this.currentActiveTile) return; // Don't spawn if one exists
 
+        // 1. Get new active value
         const val = this.upcomingQueue.shift();
-        this.fillQueue();
+        this.fillQueue(); // Replenish
 
-        // Create the tile container at the Queue position
-        this.currentActiveTile = this.createTileContainer(this.panelX, this.queueY, val);
-        
-        // Make it interactive
+        // 2. Create Draggable Active Tile
+        this.currentActiveTile = this.createTileContainer(this.activeTilePos.x, this.activeTilePos.y, val);
         this.currentActiveTile.setInteractive({ draggable: true, useHandCursor: true });
         this.input.setDraggable(this.currentActiveTile);
+
+        // 3. Update the "Next" Preview (The grey tile to the right)
+        this.updateNextPreview();
+    }
+
+    updateNextPreview() {
+        // Remove old preview
+        if (this.nextTilePreview) {
+            this.nextTilePreview.destroy();
+        }
+
+        const nextVal = this.upcomingQueue[0];
+        // Create a smaller, static, greyed-out tile
+        this.nextTilePreview = this.createTileContainer(this.previewTilePos.x, this.previewTilePos.y, nextVal);
+        this.nextTilePreview.setScale(0.7);
+        this.nextTilePreview.setAlpha(0.8);
+        
+        // Make it look inactive (grey tint or overlay)
+        const darkOverlay = this.add.rectangle(0,0, 100, 100, 0x000000, 0.3);
+        this.nextTilePreview.add(darkOverlay);
     }
 
     createTileContainer(x, y, value) {
         const container = this.add.container(x, y);
         container.value = value;
 
-        // Select Color
         const colorKey = this.colorsList[value % this.colorsList.length];
         const spriteKey = `tile_${colorKey}`;
         
-        // If texture is missing, use a fallback rect (debugging safety)
         let bg;
         if (this.textures.exists(spriteKey)) {
             bg = this.add.image(0, 0, spriteKey).setDisplaySize(100, 100);
@@ -476,17 +483,13 @@ class GameScene extends Phaser.Scene {
     }
 
     handleDrop(tile) {
-        // Calculate distances to targets
         const tileX = tile.x;
         const tileY = tile.y;
 
-        // 1. Check Grid Slots
+        // 1. Grid
         for (let i = 0; i < this.gridSlots.length; i++) {
             const slot = this.gridSlots[i];
-            const dist = Phaser.Math.Distance.Between(tileX, tileY, slot.x, slot.y);
-            
-            // Threshold for snapping (radius)
-            if (dist < 60) { 
+            if (Phaser.Math.Distance.Between(tileX, tileY, slot.x, slot.y) < 60) { 
                 if (this.gridArray[i] === null) {
                     this.placeOnGrid(tile, i);
                     return;
@@ -494,25 +497,23 @@ class GameScene extends Phaser.Scene {
             }
         }
 
-        // 2. Check Keep Slot
-        const keepDist = Phaser.Math.Distance.Between(tileX, tileY, this.keepZone.x, this.keepZone.y);
-        if (keepDist < 60) {
+        // 2. Keep
+        if (Phaser.Math.Distance.Between(tileX, tileY, this.keepZone.x, this.keepZone.y) < 60) {
             this.swapKeep(tile);
             return;
         }
 
-        // 3. Check Trash
-        const trashDist = Phaser.Math.Distance.Between(tileX, tileY, this.trashZone.x, this.trashZone.y);
-        if (trashDist < 60) {
+        // 3. Trash
+        if (Phaser.Math.Distance.Between(tileX, tileY, this.trashZone.x, this.trashZone.y) < 60) {
             this.useTrash(tile);
             return;
         }
 
-        // Invalid Drop: Tween back to spawn
+        // Return to Spawn
         this.tweens.add({
             targets: tile,
-            x: this.panelX,
-            y: this.queueY,
+            x: this.activeTilePos.x,
+            y: this.activeTilePos.y,
             duration: 200,
             ease: 'Back.out'
         });
@@ -520,20 +521,13 @@ class GameScene extends Phaser.Scene {
 
     placeOnGrid(tile, index) {
         const slot = this.gridSlots[index];
-
-        // Disable interaction immediately so it can't be dragged again
         this.input.setDraggable(tile, false);
         tile.removeInteractive();
-
-        // Snap visually
         tile.x = slot.x;
         tile.y = slot.y;
-
-        // Update State
         this.gridArray[index] = tile;
-        this.currentActiveTile = null; // Clear reference so we can spawn next
+        this.currentActiveTile = null;
 
-        // Process Game Logic
         this.checkMerges(index).then(() => {
             if (this.isGameOver()) {
                 this.scene.pause();
@@ -547,35 +541,34 @@ class GameScene extends Phaser.Scene {
 
     swapKeep(tile) {
         if (this.keepTileValue === null) {
-            // Store it
+            // 1. Keep is empty: Store active, Spawn NEW active
             this.keepTileValue = tile.value;
             
-            // Move visual to keep slot
             tile.x = this.keepZone.x;
             tile.y = this.keepZone.y;
-            tile.setScale(0.8); // Shrink slightly
-            
+            tile.setScale(0.8);
             this.input.setDraggable(tile, false);
             tile.removeInteractive();
             
             this.keepTileSprite = tile;
             this.currentActiveTile = null;
+            
             this.spawnNextTile();
         } else {
-            // Swap logic
-            const oldVal = this.keepTileValue;
+            // 2. Keep is full: SWAP active with keep. Do NOT spawn new from queue.
+            const oldKeptVal = this.keepTileValue;
             this.keepTileValue = tile.value;
 
-            // Update Keep Visual
-            this.keepTileSprite.destroy(); // Remove old sprite
+            // Update visual in keep box
+            if (this.keepTileSprite) this.keepTileSprite.destroy();
             this.keepTileSprite = this.createTileContainer(this.keepZone.x, this.keepZone.y, tile.value);
             this.keepTileSprite.setScale(0.8);
-            
-            // Destroy the tile user was dragging
+
+            // Destroy dragged tile
             tile.destroy();
 
-            // Create new active tile with the old kept value
-            this.currentActiveTile = this.createTileContainer(this.panelX, this.queueY, oldVal);
+            // Create new active tile using the OLD kept value
+            this.currentActiveTile = this.createTileContainer(this.activeTilePos.x, this.activeTilePos.y, oldKeptVal);
             this.currentActiveTile.setInteractive({ draggable: true, useHandCursor: true });
             this.input.setDraggable(this.currentActiveTile);
         }
@@ -589,11 +582,11 @@ class GameScene extends Phaser.Scene {
             this.updateUI();
             this.spawnNextTile();
         } else {
-            // Reject
+            // Bounce back
             this.tweens.add({
                 targets: tile,
-                x: this.panelX,
-                y: this.queueY,
+                x: this.activeTilePos.x,
+                y: this.activeTilePos.y,
                 duration: 200,
                 ease: 'Back.out'
             });
@@ -601,49 +594,38 @@ class GameScene extends Phaser.Scene {
     }
 
     // ==========================================
-    // MERGE MECHANICS
+    // MERGE & UTILS
     // ==========================================
 
     async checkMerges(startIndex) {
-        // Use a loop to settle cascading merges
         let stable = false;
-        
         while (!stable) {
-            stable = true; // Assume stable until a merge happens
-            
+            stable = true;
             for (let i = 0; i < 16; i++) {
                 if (!this.gridArray[i]) continue;
-
                 const neighbors = this.getNeighbors(i);
                 for (let nIdx of neighbors) {
                     if (!this.gridArray[nIdx]) continue;
-
                     const tileA = this.gridArray[i];
                     const tileB = this.gridArray[nIdx];
                     const valA = tileA.value;
                     const valB = tileB.value;
 
-                    // 1. EQUAL -> VANISH
                     if (valA === valB) {
                         await this.animateMerge(tileA, tileB, 'vanish');
                         this.gridArray[i] = null;
                         this.gridArray[nIdx] = null;
                         this.addScore(valA * 2);
-                        stable = false; 
-                        break; // Break neighbor loop to restart grid scan
+                        stable = false;
+                        break;
                     }
 
-                    // 2. DIVISIBLE
                     let larger = null, smaller = null, lIdx = -1, sIdx = -1;
-                    if (valA > valB && valA % valB === 0) {
-                        larger = tileA; smaller = tileB; lIdx = i; sIdx = nIdx;
-                    } else if (valB > valA && valB % valA === 0) {
-                        larger = tileB; smaller = tileA; lIdx = nIdx; sIdx = i;
-                    }
+                    if (valA > valB && valA % valB === 0) { larger = tileA; smaller = tileB; lIdx = i; sIdx = nIdx; }
+                    else if (valB > valA && valB % valA === 0) { larger = tileB; smaller = tileA; lIdx = nIdx; sIdx = i; }
 
                     if (larger) {
                         const result = larger.value / smaller.value;
-                        
                         if (result === 1) {
                              await this.animateMerge(larger, smaller, 'vanish');
                              this.gridArray[lIdx] = null;
@@ -658,7 +640,7 @@ class GameScene extends Phaser.Scene {
                         break;
                     }
                 }
-                if (!stable) break; // Break grid loop to restart
+                if (!stable) break;
             }
         }
     }
@@ -676,29 +658,16 @@ class GameScene extends Phaser.Scene {
 
     animateMerge(targetTile, sourceTile, type) {
         return new Promise(resolve => {
-            // Tween Source into Target
             this.tweens.add({
-                targets: sourceTile,
-                x: targetTile.x,
-                y: targetTile.y,
-                alpha: 0,
-                duration: 200,
+                targets: sourceTile, x: targetTile.x, y: targetTile.y, alpha: 0, duration: 200,
                 onComplete: () => {
                     sourceTile.destroy();
                     if (type === 'vanish') {
-                        // If both disappear, tween out target too
                         this.tweens.add({
-                            targets: targetTile,
-                            scaleX: 0, scaleY: 0, alpha: 0,
-                            duration: 150,
-                            onComplete: () => {
-                                targetTile.destroy();
-                                resolve();
-                            }
+                            targets: targetTile, scaleX: 0, scaleY: 0, alpha: 0, duration: 150,
+                            onComplete: () => { targetTile.destroy(); resolve(); }
                         });
-                    } else {
-                        resolve();
-                    }
+                    } else { resolve(); }
                 }
             });
         });
@@ -707,25 +676,12 @@ class GameScene extends Phaser.Scene {
     updateTileVisuals(container, newVal) {
         container.value = newVal;
         container.list[1].setText(newVal.toString());
-        // Update texture color
         const colorKey = this.colorsList[newVal % this.colorsList.length];
-        // Safety check for texture
         if (this.textures.exists(`tile_${colorKey}`)) {
             container.list[0].setTexture(`tile_${colorKey}`);
         }
-        
-        // Pop animation
-        this.tweens.add({
-            targets: container,
-            scaleX: 1.2, scaleY: 1.2,
-            yoyo: true,
-            duration: 100
-        });
+        this.tweens.add({ targets: container, scaleX: 1.2, scaleY: 1.2, yoyo: true, duration: 100 });
     }
-
-    // ==========================================
-    // SYSTEM
-    // ==========================================
 
     addScore(pts) {
         this.score += pts;
@@ -743,25 +699,14 @@ class GameScene extends Phaser.Scene {
     }
 
     onTimerTick() {
-        if (!this.isPaused) {
-            this.gameTime++;
-            const m = Math.floor(this.gameTime / 60).toString().padStart(2, '0');
-            const s = (this.gameTime % 60).toString().padStart(2, '0');
-            this.timerText.setText(`${m}:${s}`);
-        }
-    }
-
-    togglePause() {
-        this.isPaused = true;
-        this.scene.pause();
-        this.scene.launch('PauseScene');
+        this.gameTime++;
+        const m = Math.floor(this.gameTime / 60).toString().padStart(2, '0');
+        const s = (this.gameTime % 60).toString().padStart(2, '0');
+        this.timerText.setText(`${m}:${s}`);
     }
 
     isGameOver() {
-        // 1. Empty slots exist?
         if (this.gridArray.some(t => t === null)) return false;
-        
-        // 2. Merges possible?
         for (let i = 0; i < 16; i++) {
             const val = this.gridArray[i].value;
             const neighbors = this.getNeighbors(i);
@@ -775,7 +720,7 @@ class GameScene extends Phaser.Scene {
 }
 
 ==========================================
-FILE: C:\Users\femi6\OneDrive\Desktop\game11\scenes\PauseScene.js
+FILE: C:\Users\study\OneDrive\Desktop\Game_Assignment\scenes\PauseScene.js
 ==========================================
 class PauseScene extends Phaser.Scene {
     constructor() {
@@ -801,23 +746,24 @@ class PauseScene extends Phaser.Scene {
         const btn = this.add.rectangle(w/2, h/2 + 60, 220, 70, 0xF5A623).setInteractive({ useHandCursor: true });
         btn.setStrokeStyle(4, 0xffffff);
         
-        const btnText = this.add.text(w/2, h/2 + 60, "RESUME", {
+        this.add.text(w/2, h/2 + 60, "RESUME", {
             fontFamily: 'Fredoka', fontSize: '32px', color: '#fff', fontStyle: 'bold'
         }).setOrigin(0.5);
 
         btn.on('pointerdown', () => {
-            this.scene.resume('GameScene');
+            // 1. Stop this scene
             this.scene.stop();
+            // 2. Resume the GameScene
+            this.scene.resume('GameScene');
         });
         
-        // Hover effect
         btn.on('pointerover', () => btn.setFillStyle(0xFFB74D));
         btn.on('pointerout', () => btn.setFillStyle(0xF5A623));
     }
 }
 
 ==========================================
-FILE: C:\Users\femi6\OneDrive\Desktop\game11\scenes\UIScene.js
+FILE: C:\Users\study\OneDrive\Desktop\Game_Assignment\scenes\UIScene.js
 ==========================================
 class UIScene extends Phaser.Scene {
   constructor() {
