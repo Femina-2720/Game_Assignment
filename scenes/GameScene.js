@@ -55,7 +55,7 @@ class GameScene extends Phaser.Scene {
             if (!this.isPaused) {
                 gameObject.x = dragX;
                 gameObject.y = dragY;
-                // Bring to top while dragging so it doesn't go behind UI
+                
                 this.children.bringToTop(gameObject);
             }
         });
@@ -185,11 +185,11 @@ class GameScene extends Phaser.Scene {
         this.add.circle(this.panelX - 30, keepY - 30, 8, 0xffffff, 0.4);
         this.add.text(this.panelX, keepY + 65, "KEEP", { fontFamily: 'Fredoka', fontSize: '20px', fontStyle: 'bold', color: '#333' }).setOrigin(0.5);
 
-        // 2. QUEUE BOX (Wider to show Next tile)
+        // 2. QUEUE BOX  
         this.queueY = topY + 270;
         const queueBox = this.add.graphics();
         queueBox.fillStyle(0xffffff, 1);
-        // Adjusted width to 160 to fit two small tiles
+        
         queueBox.fillRoundedRect(this.panelX - 80, this.queueY - 65, 160, 130, 15);
         queueBox.lineStyle(2, 0xbdc3c7);
         queueBox.strokeRoundedRect(this.panelX - 80, this.queueY - 65, 160, 130, 15);
@@ -370,7 +370,7 @@ class GameScene extends Phaser.Scene {
     }
 
     swapKeep(tile) {
-        // FIXED: Do NOT remove interactivity. Set flag isKeepTile = true.
+      
 
         if (this.keepTileValue === null) {
             // Case A: Keep is empty

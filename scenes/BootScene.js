@@ -21,7 +21,7 @@ class BootScene extends Phaser.Scene {
         // Tiles
         this.load.image('tile_blue', 'assets/blue.png');
         this.load.image('tile_red', 'assets/red.png');
-        // Handle typo often found in asset packs: purple vs purpule
+       
         this.load.image('tile_purple', 'assets/purple.png'); 
         this.load.image('tile_orange', 'assets/orange.png');
         this.load.image('tile_pink', 'assets/pink.png');
